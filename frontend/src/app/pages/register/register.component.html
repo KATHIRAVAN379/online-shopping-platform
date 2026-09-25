@@ -1,0 +1,223 @@
+<div class="register-page">
+
+  <div class="register-card">
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+      <span class="logo-k">
+        K
+      </span>Cart
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <h1>
+      Create account
+    </h1>
+
+    <p class="subtitle">
+      Join KCart and start shopping
+    </p>
+
+
+    <!-- ERROR -->
+
+    @if (error) {
+
+      <div class="error-message">
+
+        {{ error }}
+
+      </div>
+
+    }
+
+
+    <!-- SUCCESS -->
+
+    @if (success) {
+
+      <div class="success-message">
+
+        {{ success }}
+
+      </div>
+
+    }
+
+
+    <!-- FORM -->
+
+    <form
+      (ngSubmit)="register()"
+    >
+
+
+      <!-- NAME -->
+
+      <div class="form-group">
+
+        <label for="name">
+          Full Name
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          name="name"
+          [(ngModel)]="name"
+          placeholder="Enter your full name"
+          autocomplete="name"
+        />
+
+      </div>
+
+
+      <!-- EMAIL -->
+
+      <div class="form-group">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          autocomplete="email"
+        />
+
+      </div>
+
+
+      <!-- PHONE -->
+
+      <div class="form-group">
+
+        <label for="phone">
+          Phone Number
+        </label>
+
+        <input
+          id="phone"
+          type="tel"
+          name="phone"
+          [(ngModel)]="phone"
+          placeholder="Enter your 10-digit phone number"
+          maxlength="10"
+          inputmode="numeric"
+          autocomplete="tel"
+        />
+
+      </div>
+
+
+      <!-- ADDRESS -->
+
+      <div class="form-group">
+
+        <label for="address">
+          Delivery Address
+        </label>
+
+        <textarea
+          id="address"
+          name="address"
+          [(ngModel)]="address"
+          placeholder="Enter your complete delivery address"
+          autocomplete="street-address"
+          rows="4"
+        ></textarea>
+
+      </div>
+
+
+      <!-- PASSWORD -->
+
+      <div class="form-group">
+
+        <label for="password">
+          Password
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Create a password"
+          autocomplete="new-password"
+        />
+
+      </div>
+
+
+      <!-- CONFIRM PASSWORD -->
+
+      <div class="form-group">
+
+        <label for="confirmPassword">
+          Confirm Password
+        </label>
+
+        <input
+          id="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          placeholder="Confirm your password"
+          autocomplete="new-password"
+        />
+
+      </div>
+
+
+      <!-- BUTTON -->
+
+      <button
+        type="submit"
+        class="register-button"
+        [disabled]="loading"
+      >
+
+        @if (loading) {
+
+          Creating account...
+
+        }
+
+        @else {
+
+          Create account
+
+        }
+
+      </button>
+
+    </form>
+
+
+    <!-- LOGIN -->
+
+    <div class="login-section">
+
+      <span>
+        Already have an account?
+      </span>
+
+      <a routerLink="/login">
+        Sign in
+      </a>
+
+    </div>
+
+  </div>
+
+</div>

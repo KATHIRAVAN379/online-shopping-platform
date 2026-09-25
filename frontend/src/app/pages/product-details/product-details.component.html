@@ -1,0 +1,239 @@
+<div class="product-details-page">
+
+  @if (loading) {
+
+    <div class="loading">
+      Loading product...
+    </div>
+
+  } @else if (error) {
+
+    <div class="error-container">
+
+      <h2>{{ error }}</h2>
+
+      <a
+        routerLink="/"
+        class="back-button"
+      >
+        Back to Home
+      </a>
+
+    </div>
+
+  } @else if (product) {
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+
+      <a routerLink="/">
+        Home
+      </a>
+
+      <span>/</span>
+
+      <span>
+        {{ product.category }}
+      </span>
+
+      <span>/</span>
+
+      <strong>
+        {{ product.name }}
+      </strong>
+
+    </div>
+
+    <!-- Product -->
+    <div class="product-container">
+
+      <!-- LEFT -->
+      <div class="product-image-section">
+
+        <button
+          type="button"
+          class="wishlist-button"
+          [class.active]="isFavourite"
+          (click)="toggleFavourite()"
+        >
+
+          @if (isFavourite) {
+            ♥
+          } @else {
+            ♡
+          }
+
+        </button>
+
+        <div class="product-image">
+
+          @if (product.imageUrl) {
+
+            <img
+              [src]="product.imageUrl"
+              [alt]="product.name"
+              (error)="imageError($event)"
+            />
+
+          }
+
+          <div class="image-placeholder">
+            {{ product.name }}
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="product-info">
+
+        <div class="brand">
+          {{ product.brand }}
+        </div>
+
+        <h1>
+          {{ product.name }}
+        </h1>
+
+        <div class="rating">
+          <span>★★★★★</span>
+          <span class="rating-text">
+            Product information
+          </span>
+        </div>
+
+        <p class="description">
+          {{ product.description }}
+        </p>
+
+        <hr>
+
+        <div class="price">
+          ₹{{ product.price | number:'1.0-0' }}
+        </div>
+
+        @if (product.quantity > 0) {
+
+          <div class="stock available">
+            <span>●</span>
+            {{ product.quantity }} items available
+          </div>
+
+        } @else {
+
+          <div class="stock unavailable">
+            Out of stock
+          </div>
+
+        }
+
+        <!-- Quantity -->
+        <div class="quantity-section">
+
+          <strong>
+            Quantity
+          </strong>
+
+          <div class="quantity-control">
+
+            <button
+              type="button"
+              (click)="decreaseQuantity()"
+              [disabled]="quantity <= 1"
+            >
+              −
+            </button>
+
+            <span>
+              {{ quantity }}
+            </span>
+
+            <button
+              type="button"
+              (click)="increaseQuantity()"
+              [disabled]="
+                product.quantity <= quantity
+              "
+            >
+              +
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- Add to cart -->
+        <button
+          type="button"
+          class="add-cart-button"
+          [disabled]="
+            product.quantity <= 0 ||
+            addingToCart
+          "
+          (click)="addToCart()"
+        >
+
+          @if (addingToCart) {
+
+            Adding to Cart...
+
+          } @else {
+
+            Add to Cart
+
+          }
+
+        </button>
+
+        <!-- Buy now -->
+        <button
+          type="button"
+          class="buy-now-button"
+          [disabled]="
+            product.quantity <= 0 ||
+            buyingNow
+          "
+          (click)="buyNow()"
+        >
+
+          @if (buyingNow) {
+
+            Processing...
+
+          } @else {
+
+            Buy Now
+
+          }
+
+        </button>
+
+        <hr>
+
+        <div class="benefits">
+
+          <div>
+            <strong>🚚 Free Delivery</strong>
+            <span>On eligible orders</span>
+          </div>
+
+          <div>
+            <strong>🔄 Easy Returns</strong>
+            <span>Return eligible products</span>
+          </div>
+
+          <div>
+            <strong>🔒 Secure Payment</strong>
+            <span>100% secure checkout</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

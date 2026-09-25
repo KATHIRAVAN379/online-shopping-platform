@@ -1,0 +1,386 @@
+<div class="orders-page">
+
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
+  <div class="orders-header">
+
+    <div>
+      <h1>My Orders</h1>
+      <p>View and manage your orders</p>
+    </div>
+
+    <a
+      routerLink="/products"
+      class="continue-shopping">
+
+      Continue Shopping
+
+    </a>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- LOADING -->
+  <!-- ===================================================== -->
+
+  <div
+    *ngIf="loading"
+    class="loading">
+
+    Loading your orders...
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- ERROR -->
+  <!-- ===================================================== -->
+
+  <div
+    *ngIf="!loading && error"
+    class="error-message">
+
+    {{ error }}
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- EMPTY -->
+  <!-- ===================================================== -->
+
+  <div
+    *ngIf="!loading && !error && orders.length === 0"
+    class="empty-orders">
+
+    <h2>No orders found</h2>
+
+    <p>
+      You have not placed any orders yet.
+    </p>
+
+    <a
+      routerLink="/products"
+      class="shop-button">
+
+      Start Shopping
+
+    </a>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- ORDERS -->
+  <!-- ===================================================== -->
+
+  <div
+    *ngIf="!loading && orders.length > 0"
+    class="orders-list">
+
+
+    <div
+      *ngFor="let order of orders"
+      class="order-card">
+
+
+      <!-- ================================================= -->
+      <!-- ORDER HEADER -->
+      <!-- ================================================= -->
+
+      <div class="order-top">
+
+        <div>
+
+          <span class="order-label">
+            ORDER
+          </span>
+
+          <h2>
+            #{{ order.id }}
+          </h2>
+
+        </div>
+
+
+        <!-- ORDER STATUS -->
+
+        <div
+          class="order-status"
+          [ngClass]="{
+            'confirmed':
+              order.status === 'CONFIRMED',
+
+            'cancelled':
+              order.status === 'CANCELLED',
+
+            'delivered':
+              order.status === 'DELIVERED',
+
+            'placed':
+              order.status === 'PLACED'
+          }">
+
+          {{ order.status }}
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- ORDER DETAILS -->
+      <!-- ================================================= -->
+
+      <div class="order-details">
+
+
+        <!-- DATE -->
+
+        <div class="detail-item">
+
+          <span class="detail-label">
+            Order Date
+          </span>
+
+          <strong>
+            {{ order.orderDate | date:'dd MMM yyyy, hh:mm a' }}
+          </strong>
+
+        </div>
+
+
+        <!-- AMOUNT -->
+
+        <div class="detail-item">
+
+          <span class="detail-label">
+            Total Amount
+          </span>
+
+          <strong>
+            ₹{{ order.totalAmount | number:'1.0-0' }}
+          </strong>
+
+        </div>
+
+
+        <!-- PAYMENT -->
+
+        <div class="detail-item">
+
+          <span class="detail-label">
+            Payment
+          </span>
+
+
+          <!-- NORMAL PAYMENT STATUS -->
+
+          <strong
+            *ngIf="order.paymentStatus !== 'REFUNDED'"
+            [ngClass]="{
+              'payment-paid':
+                order.paymentStatus === 'PAID',
+
+              'payment-pending':
+                order.paymentStatus === 'PENDING',
+
+              'payment-refund':
+                order.paymentStatus === 'REFUND_PENDING',
+
+              'payment-not-required':
+                order.paymentStatus === 'NOT_REQUIRED'
+            }">
+
+            {{ order.paymentStatus }}
+
+          </strong>
+
+
+          <!-- REFUNDED -->
+
+          <strong
+            *ngIf="order.paymentStatus === 'REFUNDED'"
+            class="payment-refunded">
+
+            REFUNDED
+
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- ACTION AREA -->
+      <!-- ================================================= -->
+
+      <div class="order-actions">
+
+
+        <!-- ================================================= -->
+        <!-- PAY NOW -->
+        <!-- ================================================= -->
+
+        <button
+          *ngIf="canPay(order)"
+          class="pay-button"
+          (click)="payOrder(order)"
+          [disabled]="payingOrderId === order.id">
+
+          <span
+            *ngIf="payingOrderId !== order.id">
+
+            Pay Now
+
+          </span>
+
+          <span
+            *ngIf="payingOrderId === order.id">
+
+            Processing...
+
+          </span>
+
+        </button>
+
+
+        <!-- ================================================= -->
+        <!-- CANCEL ORDER -->
+        <!-- ================================================= -->
+
+        <button
+          *ngIf="canCancel(order)"
+          class="cancel-button"
+          (click)="cancelOrder(order)"
+          [disabled]="cancellingOrderId === order.id">
+
+          <span
+            *ngIf="cancellingOrderId !== order.id">
+
+            Cancel Order
+
+          </span>
+
+          <span
+            *ngIf="cancellingOrderId === order.id">
+
+            Cancelling...
+
+          </span>
+
+        </button>
+
+
+        <!-- ================================================= -->
+        <!-- REFUND PENDING -->
+        <!-- ================================================= -->
+
+        <div
+          *ngIf="canRefund(order)"
+          class="refund-section">
+
+          <span class="order-cancelled-text">
+            Order Cancelled
+          </span>
+
+          <span class="refund-pending-text">
+            Refund Pending
+          </span>
+
+
+          <button
+            class="refund-button"
+            (click)="refundOrder(order)"
+            [disabled]="refundingOrderId === order.id">
+
+            <span
+              *ngIf="refundingOrderId !== order.id">
+
+              Get Refund
+
+            </span>
+
+            <span
+              *ngIf="refundingOrderId === order.id">
+
+              Processing...
+
+            </span>
+
+          </button>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- REFUNDED -->
+        <!-- ================================================= -->
+
+        <div
+          *ngIf="isRefunded(order)"
+          class="refund-completed-section">
+
+          <span class="order-cancelled-text">
+            Order Cancelled
+          </span>
+
+          <span class="refund-completed-text">
+
+            Refunded
+            ₹{{ order.totalAmount | number:'1.0-0' }}
+
+          </span>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- CANCELLED WITHOUT PAYMENT -->
+        <!-- ================================================= -->
+
+        <div
+          *ngIf="
+            order.status === 'CANCELLED' &&
+            order.paymentStatus === 'NOT_REQUIRED'
+          "
+          class="cancelled-section">
+
+          <span class="order-cancelled-text">
+
+            Order Cancelled
+
+          </span>
+
+          <span class="not-required-text">
+
+            Payment Not Required
+
+          </span>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- VIEW ORDER -->
+        <!-- ================================================= -->
+
+        <a
+          [routerLink]="['/orders', order.id]"
+          class="view-button">
+
+          View Details
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

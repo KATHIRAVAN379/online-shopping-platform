@@ -1,0 +1,157 @@
+<div class="favourites-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+        My Favourites
+      </h1>
+
+      <p>
+        Products you saved for later
+      </p>
+
+    </div>
+
+
+    @if (favourites.length > 0) {
+
+      <button
+        class="clear-button"
+        type="button"
+        (click)="clearAll()">
+
+        Clear All
+
+      </button>
+
+    }
+
+  </div>
+
+
+  @if (favourites.length === 0) {
+
+    <div class="empty-favourites">
+
+      <div class="empty-icon">
+        ♡
+      </div>
+
+      <h2>
+        Your favourites are empty
+      </h2>
+
+      <p>
+        Save products you love and find them here later.
+      </p>
+
+      <a
+        routerLink="/"
+        class="shop-button">
+
+        Continue Shopping
+
+      </a>
+
+    </div>
+
+  }
+
+
+  @if (favourites.length > 0) {
+
+    <div class="favourites-grid">
+
+      @for (
+        product of favourites;
+        track product.id
+      ) {
+
+        <article class="favourite-card">
+
+          <div class="image-container">
+
+            <span class="category">
+              {{ product.category }}
+            </span>
+
+
+            <button
+              type="button"
+              class="remove-heart"
+              (click)="removeFavourite(product.id)">
+
+              ♥
+
+            </button>
+
+
+            @if (product.imageUrl) {
+
+              <img
+                [src]="product.imageUrl"
+                [alt]="product.name">
+
+            } @else {
+
+              <div class="no-image">
+                {{ product.name }}
+              </div>
+
+            }
+
+          </div>
+
+
+          <div class="product-info">
+
+            <p class="brand">
+              {{ product.brand }}
+            </p>
+
+            <h2>
+              {{ product.name }}
+            </h2>
+
+            <p class="description">
+              {{ product.description }}
+            </p>
+
+            <strong class="price">
+              ₹{{ product.price | number:'1.0-0' }}
+            </strong>
+
+            <p class="stock">
+              @if (product.quantity > 0) {
+                {{ product.quantity }} available
+              } @else {
+                Out of stock
+              }
+            </p>
+
+            <button
+              class="cart-button"
+              type="button"
+              [disabled]="product.quantity <= 0">
+
+              @if (product.quantity > 0) {
+                Add to Cart
+              } @else {
+                Out of Stock
+              }
+
+            </button>
+
+          </div>
+
+        </article>
+
+      }
+
+    </div>
+
+  }
+
+</div>

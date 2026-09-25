@@ -1,0 +1,379 @@
+<div class="order-details-page">
+
+  <!-- Header -->
+  <div class="page-header">
+
+    <div>
+      <h1>Order Details</h1>
+      <p>View and manage your order</p>
+    </div>
+
+    <button
+      class="back-button"
+      (click)="goBack()">
+      ← Back to My Orders
+    </button>
+
+  </div>
+
+
+  <!-- Loading -->
+  <div
+    *ngIf="loading"
+    class="loading">
+
+    Loading order details...
+
+  </div>
+
+
+  <!-- Error -->
+  <div
+    *ngIf="!loading && error"
+    class="error-message">
+
+    {{ error }}
+
+  </div>
+
+
+  <!-- Order Details -->
+  <div
+    *ngIf="!loading && !error && order"
+    class="order-container">
+
+
+    <!-- Order Header Card -->
+    <div class="order-card">
+
+      <div class="order-header">
+
+        <div>
+
+          <span class="order-label">
+            ORDER
+          </span>
+
+          <h2>
+            #{{ order.id }}
+          </h2>
+
+        </div>
+
+
+        <div
+          class="order-status"
+          [ngClass]="{
+            'confirmed': order.status === 'CONFIRMED',
+            'cancelled': order.status === 'CANCELLED',
+            'delivered': order.status === 'DELIVERED',
+            'placed': order.status === 'PLACED'
+          }">
+
+          {{ order.status }}
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Order Information -->
+    <div class="order-card">
+
+      <h3>
+        Order Information
+      </h3>
+
+
+      <div class="details-grid">
+
+
+        <!-- Order ID -->
+        <div class="detail-item">
+
+          <span class="detail-label">
+            Order ID
+          </span>
+
+          <strong>
+            #{{ order.id }}
+          </strong>
+
+        </div>
+
+
+        <!-- Order Date -->
+        <div class="detail-item">
+
+          <span class="detail-label">
+            Order Date
+          </span>
+
+          <strong>
+            {{ order.orderDate | date:'dd MMM yyyy, hh:mm a' }}
+          </strong>
+
+        </div>
+
+
+        <!-- Email -->
+        <div class="detail-item">
+
+          <span class="detail-label">
+            Customer Email
+          </span>
+
+          <strong>
+            {{ order.userEmail }}
+          </strong>
+
+        </div>
+
+
+        <!-- Amount -->
+        <div class="detail-item">
+
+          <span class="detail-label">
+            Total Amount
+          </span>
+
+          <strong class="amount">
+            ₹{{ order.totalAmount | number:'1.0-0' }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Payment Information -->
+    <div class="order-card">
+
+      <h3>
+        Payment Information
+      </h3>
+
+
+      <div class="payment-info">
+
+
+        <div class="payment-row">
+
+          <span>
+            Payment Status
+          </span>
+
+
+          <strong
+            *ngIf="order.paymentStatus !== 'REFUNDED'"
+            [ngClass]="{
+              'payment-paid':
+                order.paymentStatus === 'PAID',
+
+              'payment-pending':
+                order.paymentStatus === 'PENDING',
+
+              'payment-refund':
+                order.paymentStatus === 'REFUND_PENDING',
+
+              'payment-not-required':
+                order.paymentStatus === 'NOT_REQUIRED'
+            }">
+
+            {{ order.paymentStatus }}
+
+          </strong>
+
+
+          <strong
+            *ngIf="order.paymentStatus === 'REFUNDED'"
+            class="payment-refunded">
+
+            REFUNDED
+
+          </strong>
+
+        </div>
+
+
+        <div class="payment-row">
+
+          <span>
+            Amount
+          </span>
+
+          <strong>
+            ₹{{ order.totalAmount | number:'1.0-0' }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Order Actions -->
+    <div class="order-card actions-card">
+
+      <h3>
+        Order Actions
+      </h3>
+
+
+      <div class="actions">
+
+
+        <!-- Pay Now -->
+        <button
+          *ngIf="canPay()"
+          class="pay-button"
+          (click)="payOrder()"
+          [disabled]="paying">
+
+          <span *ngIf="!paying">
+            Pay Now
+          </span>
+
+          <span *ngIf="paying">
+            Processing...
+          </span>
+
+        </button>
+
+
+        <!-- Cancel -->
+        <button
+          *ngIf="canCancel()"
+          class="cancel-button"
+          (click)="cancelOrder()"
+          [disabled]="cancelling">
+
+          <span *ngIf="!cancelling">
+            Cancel Order
+          </span>
+
+          <span *ngIf="cancelling">
+            Cancelling...
+          </span>
+
+        </button>
+
+
+        <!-- Refund Pending -->
+        <div
+          *ngIf="canRefund()"
+          class="refund-section">
+
+          <div class="refund-info">
+
+            <strong>
+              Order Cancelled
+            </strong>
+
+            <span>
+              Refund Pending
+            </span>
+
+          </div>
+
+
+          <button
+            class="refund-button"
+            (click)="refundOrder()"
+            [disabled]="refunding">
+
+            <span *ngIf="!refunding">
+              Get Refund
+            </span>
+
+            <span *ngIf="refunding">
+              Processing...
+            </span>
+
+          </button>
+
+        </div>
+
+
+        <!-- Refunded -->
+        <div
+          *ngIf="isRefunded()"
+          class="refund-completed">
+
+          <div>
+
+            <strong>
+              Order Cancelled
+            </strong>
+
+            <span>
+              Refunded ₹{{ order.totalAmount | number:'1.0-0' }}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- Cancelled without payment -->
+        <div
+          *ngIf="
+            order.status === 'CANCELLED' &&
+            order.paymentStatus === 'NOT_REQUIRED'
+          "
+          class="cancelled-section">
+
+          <strong>
+            Order Cancelled
+          </strong>
+
+          <span>
+            Payment Not Required
+          </span>
+
+        </div>
+
+
+        <!-- Delivered -->
+        <div
+          *ngIf="order.status === 'DELIVERED'"
+          class="delivered-section">
+
+          <strong>
+            Order Delivered
+          </strong>
+
+          <span>
+            This order has been delivered successfully.
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <!-- Back Button -->
+    <div class="bottom-action">
+
+      <button
+        class="back-button-large"
+        (click)="goBack()">
+
+        ← Back to My Orders
+
+      </button>
+
+    </div>
+
+
+  </div>
+
+</div>

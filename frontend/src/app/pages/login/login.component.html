@@ -1,0 +1,95 @@
+<div class="login-page">
+
+  <div class="login-card">
+
+    <div class="logo">
+      <span class="logo-k">K</span>Cart
+    </div>
+
+    <h1>Sign in</h1>
+
+    <p class="subtitle">
+      Login to continue shopping
+    </p>
+
+    @if (error) {
+
+      <div class="error-message">
+        {{ error }}
+      </div>
+
+    }
+
+    <form (ngSubmit)="login()">
+
+      <div class="form-group">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          autocomplete="email"
+        />
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="password">
+          Password
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+        />
+
+      </div>
+
+      <button
+        type="submit"
+        class="login-button"
+        [disabled]="loading"
+      >
+
+        @if (loading) {
+          Signing in...
+        } @else {
+          Sign in
+        }
+
+      </button>
+
+    </form>
+
+    <div class="register-section">
+
+      <span>New to KCart?</span>
+
+      <a routerLink="/register">
+        Create your KCart account
+      </a>
+
+    </div>
+
+    <div class="back-section">
+
+      <a routerLink="/">
+        ← Continue shopping
+      </a>
+
+    </div>
+
+  </div>
+
+</div>

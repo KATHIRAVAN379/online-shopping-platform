@@ -1,0 +1,34 @@
+# Java / Spring Boot
+backend/**/target/
+backend/**/build/
+backend/**/*.class
+backend/**/*.log
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/.idea/
+backend/.vscode/
+
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.cache/
+frontend/.parcel-cache/
+frontend/package-lock.json
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*

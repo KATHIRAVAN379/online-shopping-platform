@@ -1,0 +1,794 @@
+<div class="home-page">
+
+  <!-- =====================================================
+       HERO SECTION
+  ====================================================== -->
+
+  <section class="hero-section">
+
+    <button
+      class="hero-arrow hero-prev"
+      type="button"
+      aria-label="Previous"
+    >
+      ‹
+    </button>
+
+    <div class="hero-content">
+
+      <div class="hero-text">
+
+        <div class="hero-label">
+          KCART SHOPPING FESTIVAL
+        </div>
+
+        <h1>
+          Everything You Need.<br>
+          All in One Place.
+        </h1>
+
+        <p>
+          Discover the latest products, amazing deals and
+          trusted brands at great prices.
+        </p>
+
+        <button
+          class="hero-button"
+          type="button"
+          (click)="searchProducts('')"
+        >
+          Shop Now
+        </button>
+
+      </div>
+
+
+      <!-- PRODUCT VISUAL -->
+
+      <div class="hero-products">
+
+        <div class="hero-circle"></div>
+
+        <div class="hero-product laptop">
+          <div class="laptop-screen"></div>
+          <div class="laptop-base"></div>
+        </div>
+
+        <div class="hero-product phone">
+          <div class="phone-screen"></div>
+        </div>
+
+        <div class="hero-product headphones">
+          <div class="headphone-band"></div>
+          <div class="headphone-left"></div>
+          <div class="headphone-right"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="hero-arrow hero-next"
+      type="button"
+      aria-label="Next"
+    >
+      ›
+    </button>
+
+
+    <div class="hero-dots">
+
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       SHOP BY CATEGORY
+  ====================================================== -->
+
+  <section class="category-section">
+
+    <div class="section-header">
+
+      <div>
+
+        <h2>
+          Shop by Category
+        </h2>
+
+        <p>
+          Explore products across every category
+        </p>
+
+      </div>
+
+      <button
+        type="button"
+        class="view-all"
+        (click)="searchProducts('')"
+      >
+        View All →
+      </button>
+
+    </div>
+
+
+    <div class="category-grid">
+
+
+      <!-- MOBILES -->
+
+      <button
+        type="button"
+        class="category-card mobile-card"
+        (click)="viewCategory('Mobiles')"
+      >
+
+        <div class="category-icon">
+          📱
+        </div>
+
+        <h3>
+          Mobiles
+        </h3>
+
+        <p>
+          Latest smartphones
+        </p>
+
+      </button>
+
+
+      <!-- ELECTRONICS -->
+
+      <button
+        type="button"
+        class="category-card electronics-card"
+        (click)="viewCategory('Electronics')"
+      >
+
+        <div class="category-icon">
+          🖥️
+        </div>
+
+        <h3>
+          Electronics
+        </h3>
+
+        <p>
+          Tech & gadgets
+        </p>
+
+      </button>
+
+
+      <!-- FASHION -->
+
+      <button
+        type="button"
+        class="category-card fashion-card"
+        (click)="viewCategory('Fashion')"
+      >
+
+        <div class="category-icon">
+          👕
+        </div>
+
+        <h3>
+          Fashion
+        </h3>
+
+        <p>
+          Style for everyone
+        </p>
+
+      </button>
+
+
+      <!-- HOME -->
+
+      <button
+        type="button"
+        class="category-card home-card"
+        (click)="viewCategory('Home & Kitchen')"
+      >
+
+        <div class="category-icon">
+          🏠
+        </div>
+
+        <h3>
+          Home & Kitchen
+        </h3>
+
+        <p>
+          Make your home better
+        </p>
+
+      </button>
+
+
+      <!-- APPLIANCES -->
+
+      <button
+        type="button"
+        class="category-card appliances-card"
+        (click)="viewCategory('Appliances')"
+      >
+
+        <div class="category-icon">
+          🧺
+        </div>
+
+        <h3>
+          Appliances
+        </h3>
+
+        <p>
+          Upgrade your home
+        </p>
+
+      </button>
+
+
+      <!-- BOOKS -->
+
+      <button
+        type="button"
+        class="category-card books-card"
+        (click)="viewCategory('Books')"
+      >
+
+        <div class="category-icon">
+          📖
+        </div>
+
+        <h3>
+          Books
+        </h3>
+
+        <p>
+          Read & discover
+        </p>
+
+      </button>
+
+
+      <!-- SPORTS -->
+
+      <button
+        type="button"
+        class="category-card sports-card"
+        (click)="viewCategory('Sports')"
+      >
+
+        <div class="category-icon">
+          ⚽
+        </div>
+
+        <h3>
+          Sports
+        </h3>
+
+        <p>
+          Play your best
+        </p>
+
+      </button>
+
+
+      <!-- BEAUTY -->
+
+      <button
+        type="button"
+        class="category-card beauty-card"
+        (click)="viewCategory('Beauty')"
+      >
+
+        <div class="category-icon">
+          🌸
+        </div>
+
+        <h3>
+          Beauty
+        </h3>
+
+        <p>
+          Look & feel great
+        </p>
+
+      </button>
+
+
+      <!-- TOYS -->
+
+      <button
+        type="button"
+        class="category-card toys-card"
+        (click)="viewCategory('Toys & Games')"
+      >
+
+        <div class="category-icon">
+          🎮
+        </div>
+
+        <h3>
+          Toys & Games
+        </h3>
+
+        <p>
+          Fun for all ages
+        </p>
+
+      </button>
+
+
+      <!-- HEALTH -->
+
+      <button
+        type="button"
+        class="category-card health-card"
+        (click)="viewCategory('Health')"
+      >
+
+        <div class="category-icon">
+          ❤️
+        </div>
+
+        <h3>
+          Health
+        </h3>
+
+        <p>
+          Healthier you
+        </p>
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       TODAY'S DEALS
+  ====================================================== -->
+
+  <section class="deals-section">
+
+    <div class="section-header">
+
+      <div>
+
+        <h2>
+          Today's Deals
+        </h2>
+
+        <p>
+          Grab the best offers before they're gone
+        </p>
+
+      </div>
+
+      <button
+        type="button"
+        class="view-all"
+        (click)="searchProducts('')"
+      >
+        View All →
+      </button>
+
+    </div>
+
+
+    <!-- LOADING -->
+
+    @if (loading) {
+
+      <div class="loading-box">
+        Loading products...
+      </div>
+
+    }
+
+
+    <!-- ERROR -->
+
+    @else if (error) {
+
+      <div class="error-box">
+
+        <p>
+          {{ error }}
+        </p>
+
+        <button
+          type="button"
+          (click)="retry()"
+        >
+          Retry
+        </button>
+
+      </div>
+
+    }
+
+
+    <!-- PRODUCTS -->
+
+    @else if (products.length > 0) {
+
+      <div class="products-grid">
+
+        @for (
+          product of products;
+          track product.id
+        ) {
+
+          <article
+            class="product-card"
+          >
+
+            <!-- DISCOUNT -->
+
+            <span class="discount-badge">
+              DEAL
+            </span>
+
+
+            <!-- FAVOURITE -->
+
+            <button
+              type="button"
+              class="favourite-button"
+              (click)="toggleFavourite(product)"
+              [class.active]="isFavourite(product)"
+              [attr.aria-label]="
+                isFavourite(product)
+                  ? 'Remove from favourites'
+                  : 'Add to favourites'
+              "
+            >
+
+              {{ isFavourite(product) ? '♥' : '♡' }}
+
+            </button>
+
+
+            <!-- PRODUCT IMAGE -->
+
+            <a
+              class="product-image-container"
+              [routerLink]="[
+                '/product',
+                product.id
+              ]"
+            >
+
+              <img
+                class="product-image"
+                [src]="
+                  product.imageUrl ||
+                  getProductImage(product)
+                "
+                [alt]="product.name"
+                (error)="imageError($event)"
+              >
+
+            </a>
+
+
+            <!-- PRODUCT INFORMATION -->
+
+            <div class="product-information">
+
+              <span class="product-brand">
+                {{ product.brand }}
+              </span>
+
+              <a
+                [routerLink]="[
+                  '/product',
+                  product.id
+                ]"
+                class="product-name"
+              >
+                {{ product.name }}
+              </a>
+
+              <p class="product-description">
+                {{ product.description }}
+              </p>
+
+
+              <div class="product-rating">
+                <span>★</span>
+                <span>4.4</span>
+                <small>
+                  (120)
+                </small>
+              </div>
+
+
+              <div class="price-section">
+
+                <span class="old-price">
+                  ₹{{ (product.price * 1.2) | number:'1.0-0' }}
+                </span>
+
+                <strong class="product-price">
+                  ₹{{ product.price | number:'1.0-0' }}
+                </strong>
+
+              </div>
+
+
+              <span
+                class="stock"
+                [class.out]="product.quantity <= 0"
+              >
+
+                @if (product.quantity > 0) {
+                  {{ product.quantity }} available
+                }
+                @else {
+                  Out of stock
+                }
+
+              </span>
+
+
+              <button
+                type="button"
+                class="add-cart-button"
+                [disabled]="
+                  product.quantity <= 0 ||
+                  isAddingToCart(product.id)
+                "
+                (click)="addToCart(product)"
+              >
+
+                @if (isAddingToCart(product.id)) {
+                  Adding...
+                }
+                @else {
+                  Add to Cart
+                }
+
+              </button>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    }
+
+
+    <!-- NO PRODUCTS -->
+
+    @else {
+
+      <div class="no-products">
+
+        <h3>
+          No products found
+        </h3>
+
+        <p>
+          Try searching for another product or category.
+        </p>
+
+        <button
+          type="button"
+          (click)="searchProducts('')"
+        >
+          View All Products
+        </button>
+
+      </div>
+
+    }
+
+  </section>
+
+
+
+  <!-- =====================================================
+       PROMOTIONAL CARDS
+  ====================================================== -->
+
+  <section class="promo-section">
+
+
+    <div class="promo-card electronics-promo">
+
+      <div>
+
+        <span>
+          UP TO 50% OFF
+        </span>
+
+        <h2>
+          Electronics
+        </h2>
+
+        <button
+          type="button"
+          (click)="viewCategory('Electronics')"
+        >
+          Shop Now
+        </button>
+
+      </div>
+
+      <div class="promo-object">
+        LAPTOP
+      </div>
+
+    </div>
+
+
+    <div class="promo-card fashion-promo">
+
+      <div>
+
+        <span>
+          NEW COLLECTION
+        </span>
+
+        <h2>
+          Fashion
+        </h2>
+
+        <button
+          type="button"
+          (click)="viewCategory('Fashion')"
+        >
+          Explore
+        </button>
+
+      </div>
+
+      <div class="promo-object">
+        FASHION
+      </div>
+
+    </div>
+
+
+    <div class="promo-card home-promo">
+
+      <div>
+
+        <span>
+          UP TO 60% OFF
+        </span>
+
+        <h2>
+          Home Essentials
+        </h2>
+
+        <button
+          type="button"
+          (click)="viewCategory('Home & Kitchen')"
+        >
+          Shop Now
+        </button>
+
+      </div>
+
+      <div class="promo-object">
+        HOME
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       SERVICE FEATURES
+  ====================================================== -->
+
+  <section class="features-section">
+
+    <div class="feature">
+
+      <span class="feature-icon">
+        🚚
+      </span>
+
+      <div>
+
+        <h3>
+          Free Delivery
+        </h3>
+
+        <p>
+          On eligible orders
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="feature">
+
+      <span class="feature-icon">
+        ↩
+      </span>
+
+      <div>
+
+        <h3>
+          Easy Returns
+        </h3>
+
+        <p>
+          Simple return process
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="feature">
+
+      <span class="feature-icon">
+        ◇
+      </span>
+
+      <div>
+
+        <h3>
+          Secure Payment
+        </h3>
+
+        <p>
+          Safe & secure checkout
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="feature">
+
+      <span class="feature-icon">
+        ♧
+      </span>
+
+      <div>
+
+        <h3>
+          Customer Support
+        </h3>
+
+        <p>
+          We're here to help
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

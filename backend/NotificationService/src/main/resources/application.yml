@@ -1,0 +1,27 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: NOTIFICATION-SERVICE
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${gmail-sender}
+    password: ${google pass-key}
+
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

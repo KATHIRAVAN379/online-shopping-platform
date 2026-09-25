@@ -1,0 +1,755 @@
+<header class="site-header">
+
+  <!-- =====================================================
+       TOP HEADER
+  ====================================================== -->
+
+  <div class="header-top">
+
+    <!-- =================================================
+         LOGO
+    ================================================== -->
+
+    <a
+      routerLink="/"
+      class="logo"
+      aria-label="KCart Home"
+    >
+
+      <!-- Professional cart icon -->
+      <span class="logo-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 8H7"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
+          <circle
+            cx="10"
+            cy="20"
+            r="1.4"
+            fill="currentColor"
+          />
+
+          <circle
+            cx="18"
+            cy="20"
+            r="1.4"
+            fill="currentColor"
+          />
+        </svg>
+
+      </span>
+
+
+      <span class="logo-k">
+        K
+      </span>
+
+      <span class="logo-cart">
+        Cart
+      </span>
+
+    </a>
+
+
+    <!-- =================================================
+         SEARCH
+    ================================================== -->
+
+    <div class="search-container">
+
+      <select
+        class="category-select"
+        aria-label="Select category"
+        [(ngModel)]="selectedCategory"
+        (change)="selectCategory()"
+      >
+
+        <option value="All Categories">
+          All Categories
+        </option>
+
+        <option value="Electronics">
+          Electronics
+        </option>
+
+        <option value="Mobiles">
+          Mobiles
+        </option>
+
+        <option value="Fashion">
+          Fashion
+        </option>
+
+        <option value="Home & Kitchen">
+          Home & Kitchen
+        </option>
+
+        <option value="Books">
+          Books
+        </option>
+
+        <option value="Appliances">
+          Appliances
+        </option>
+
+        <option value="Sports">
+          Sports
+        </option>
+
+        <option value="Beauty">
+          Beauty
+        </option>
+
+        <option value="Health">
+          Health
+        </option>
+
+        <option value="Toys & Games">
+          Toys & Games
+        </option>
+
+      </select>
+
+
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search products, brands and more..."
+        [(ngModel)]="searchText"
+        (keydown)="onSearchKeydown($event)"
+      />
+
+
+      <!-- PROFESSIONAL SEARCH ICON -->
+
+      <button
+        type="button"
+        class="search-button"
+        aria-label="Search"
+        (click)="searchProducts()"
+      >
+
+        <svg
+          class="search-svg"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+
+          <circle
+            cx="10.8"
+            cy="10.8"
+            r="6.8"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+          />
+
+          <path
+            d="M16 16l5 5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+          />
+
+        </svg>
+
+      </button>
+
+    </div>
+
+
+    <!-- =================================================
+         DELIVERY LOCATION
+    ================================================== -->
+
+    <button
+      type="button"
+      class="delivery-info"
+      (click)="changeDeliveryLocation()"
+      aria-label="Change delivery location"
+    >
+
+      <!-- Professional location icon -->
+
+      <span class="delivery-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+
+          <path
+            d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+          />
+
+          <circle
+            cx="12"
+            cy="9"
+            r="2.3"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+          />
+
+        </svg>
+
+      </span>
+
+
+      <div class="delivery-content">
+
+        <span class="delivery-label">
+          Deliver to
+        </span>
+
+        <strong
+          [title]="deliveryLocation"
+        >
+          {{ deliveryLocation }}
+        </strong>
+
+      </div>
+
+
+      <!-- Small arrow -->
+
+      <svg
+        class="delivery-arrow"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+
+        <path
+          d="M7 10l5 5 5-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+
+      </svg>
+
+    </button>
+
+
+    <!-- =================================================
+         ACCOUNT
+    ================================================== -->
+
+    <div class="account-section">
+
+      <!-- Professional user icon -->
+
+      <span class="account-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+
+          <circle
+            cx="12"
+            cy="7"
+            r="3.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+          />
+
+          <path
+            d="M5.5 20c.7-4 3-6 6.5-6s5.8 2 6.5 6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          />
+
+        </svg>
+
+      </span>
+
+
+      <div class="account-content">
+
+        <span class="small-text">
+          Hello
+        </span>
+
+
+        @if (isLoggedIn()) {
+
+          <strong>
+            {{ user?.username || 'My Account' }}
+          </strong>
+
+
+          <button
+            type="button"
+            class="logout-button"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+
+        }
+
+        @else {
+
+          <a
+            routerLink="/login"
+            class="login-link"
+          >
+            Sign in
+          </a>
+
+        }
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ORDERS
+    ================================================== -->
+
+    <a
+      routerLink="/orders"
+      class="orders-section"
+    >
+
+      <!-- Professional box/order icon -->
+
+      <span class="orders-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+
+          <path
+            d="M4 7.5L12 3l8 4.5v9L12 21l-8-4.5v-9z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linejoin="round"
+          />
+
+          <path
+            d="M4.5 7.7L12 12l7.5-4.3M12 12v9"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linejoin="round"
+          />
+
+        </svg>
+
+      </span>
+
+
+      <div>
+
+        <span class="small-text">
+          Returns
+        </span>
+
+        <strong>
+          & Orders
+        </strong>
+
+      </div>
+
+    </a>
+
+
+    <!-- =================================================
+         CART
+    ================================================== -->
+
+    <a
+      routerLink="/cart"
+      class="cart-section"
+    >
+
+      <!-- Professional cart icon -->
+
+      <span class="cart-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+
+          <path
+            d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 8H7"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.9"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
+          <circle
+            cx="10"
+            cy="20"
+            r="1.3"
+            fill="currentColor"
+          />
+
+          <circle
+            cx="18"
+            cy="20"
+            r="1.3"
+            fill="currentColor"
+          />
+
+        </svg>
+
+      </span>
+
+
+      <span class="cart-count">
+        0
+      </span>
+
+
+      <strong>
+        Cart
+      </strong>
+
+    </a>
+
+  </div>
+
+
+  <!-- =====================================================
+       NAVIGATION BAR
+  ====================================================== -->
+
+  <nav class="navigation-bar">
+
+
+    <!-- ALL CATEGORIES -->
+
+    <button
+      type="button"
+      class="all-categories"
+      (click)="goToCategory('')"
+    >
+
+      <span class="menu-icon">
+        ☰
+      </span>
+
+      <span>
+        All Categories
+      </span>
+
+    </button>
+
+
+    <!-- NAV LINKS -->
+
+    <div class="nav-links">
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToDeals()"
+      >
+        Today's Deals
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToCategory('Mobiles')"
+      >
+        Mobiles
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToCategory('Electronics')"
+      >
+        Electronics
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToCategory('Fashion')"
+      >
+        Fashion
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToCategory('Home & Kitchen')"
+      >
+        Home & Kitchen
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToCategory('Appliances')"
+      >
+        Appliances
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToCategory('Books')"
+      >
+        Books
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToCategory('Toys & Games')"
+      >
+        Toys & Games
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToCategory('Beauty')"
+      >
+        Beauty
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToCategory('Sports')"
+      >
+        Sports
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToCategory('Health')"
+      >
+        Health
+      </button>
+
+    </div>
+
+
+    <!-- SELL -->
+
+    <button
+      type="button"
+      class="sell-link"
+    >
+      Sell on KCart
+    </button>
+
+  </nav>
+
+
+  <!-- =====================================================
+       DELIVERY LOCATION MODAL
+  ====================================================== -->
+
+  @if (showLocationModal) {
+
+    <div
+      class="location-overlay"
+      (click)="closeLocationModal()"
+    >
+
+      <div
+        class="location-modal"
+        (click)="$event.stopPropagation()"
+      >
+
+        <!-- MODAL HEADER -->
+
+        <div class="location-modal-header">
+
+          <div class="location-title">
+
+            <div class="location-title-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                />
+
+                <circle
+                  cx="12"
+                  cy="9"
+                  r="2.3"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                />
+
+              </svg>
+
+            </div>
+
+
+            <div>
+
+              <h2>
+                Choose your delivery location
+              </h2>
+
+              <p>
+                Enter your location to see products
+                available for delivery.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="location-close"
+            aria-label="Close"
+            (click)="closeLocationModal()"
+          >
+            ×
+          </button>
+
+        </div>
+
+
+        <!-- MODAL BODY -->
+
+        <div class="location-modal-body">
+
+          <label for="deliveryLocationInput">
+            Delivery location
+          </label>
+
+
+          <div class="location-input-wrapper">
+
+            <svg
+              class="input-location-svg"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+
+              <path
+                d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+
+              <circle
+                cx="12"
+                cy="9"
+                r="2.3"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+
+            </svg>
+
+
+            <input
+              id="deliveryLocationInput"
+              type="text"
+              [(ngModel)]="locationInput"
+              placeholder="Enter your city, area or pincode"
+              (keydown.enter)="saveDeliveryLocation()"
+              autocomplete="street-address"
+            />
+
+          </div>
+
+
+          <div class="location-hint">
+
+            <span class="hint-icon">
+              ⓘ
+            </span>
+
+            <span>
+              Example: Chennai 600001
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- MODAL FOOTER -->
+
+        <div class="location-modal-footer">
+
+          <button
+            type="button"
+            class="location-cancel"
+            (click)="closeLocationModal()"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="button"
+            class="location-save"
+            [disabled]="!locationInput.trim()"
+            (click)="saveDeliveryLocation()"
+          >
+            Save Location
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+</header>

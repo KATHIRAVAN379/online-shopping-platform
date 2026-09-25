@@ -1,0 +1,608 @@
+/* =========================================================
+   ORDERS PAGE
+   ========================================================= */
+
+.orders-page {
+  min-height: 100vh;
+  background: #f5f7fa;
+  padding: 40px 32px;
+  font-family: Arial, sans-serif;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.orders-header h1 {
+  margin: 0;
+  color: #072635;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.orders-header p {
+  margin: 8px 0 0;
+  color: #6d8290;
+  font-size: 15px;
+}
+
+.continue-shopping {
+  background: #072635;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.continue-shopping:hover {
+  background: #0b3448;
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.loading {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  color: #647d90;
+  font-size: 17px;
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.error-message {
+  background: #fff0f0;
+  color: #d52b2b;
+  padding: 18px 20px;
+  border-radius: 8px;
+  border: 1px solid #ffd1d1;
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   EMPTY ORDERS
+   ========================================================= */
+
+.empty-orders {
+  background: #ffffff;
+  padding: 60px 30px;
+  text-align: center;
+  border-radius: 16px;
+  border: 1px solid #e0e6ea;
+}
+
+.empty-orders h2 {
+  margin: 0 0 10px;
+  color: #072635;
+  font-size: 26px;
+}
+
+.empty-orders p {
+  margin: 0;
+  color: #6d8290;
+  font-size: 16px;
+}
+
+.shop-button {
+  display: inline-block;
+  margin-top: 20px;
+  background: #ff9900;
+  color: #ffffff;
+  padding: 13px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.shop-button:hover {
+  background: #e88a00;
+}
+
+
+/* =========================================================
+   ORDERS LIST
+   ========================================================= */
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+
+/* =========================================================
+   ORDER CARD
+   ========================================================= */
+
+.order-card {
+  background: #ffffff;
+  border: 1px solid #dce3e8;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================================================
+   ORDER TOP
+   ========================================================= */
+
+.order-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #e3e7eb;
+}
+
+.order-label {
+  display: block;
+  color: #647d90;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.order-top h2 {
+  margin: 8px 0 0;
+  color: #072635;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   ORDER STATUS
+   ========================================================= */
+
+.order-status {
+  padding: 11px 22px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.order-status.confirmed {
+  background: #e9f8ef;
+  color: #07883f;
+}
+
+.order-status.cancelled {
+  background: #fff0f0;
+  color: #d52b2b;
+}
+
+.order-status.delivered {
+  background: #e9f8ef;
+  color: #07883f;
+}
+
+.order-status.placed {
+  background: #fff7df;
+  color: #a66b00;
+}
+
+
+/* =========================================================
+   ORDER DETAILS
+   ========================================================= */
+
+.order-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 30px 0;
+  border-bottom: 1px solid #e3e7eb;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.detail-label {
+  color: #668099;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.detail-item strong {
+  color: #072635;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   PAYMENT STATUS COLORS
+   ========================================================= */
+
+.payment-paid {
+  color: #07883f !important;
+}
+
+.payment-pending {
+  color: #a66b00 !important;
+}
+
+.payment-refund {
+  color: #b85c00 !important;
+}
+
+.payment-not-required {
+  color: #777777 !important;
+}
+
+.payment-refunded {
+  color: #07883f !important;
+}
+
+
+/* =========================================================
+   ORDER ACTIONS
+   ========================================================= */
+
+.order-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 24px;
+  flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   PAY BUTTON
+   ========================================================= */
+
+.pay-button {
+  border: none;
+  background: #ff9900;
+  color: #ffffff;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.pay-button:hover:not(:disabled) {
+  background: #e88a00;
+}
+
+.pay-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   CANCEL BUTTON
+   ========================================================= */
+
+.cancel-button {
+  border: none;
+  background: #e12626;
+  color: #ffffff;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cancel-button:hover:not(:disabled) {
+  background: #c91d1d;
+}
+
+.cancel-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   REFUND SECTION
+   ========================================================= */
+
+.refund-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.order-cancelled-text {
+  color: #e12626;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.refund-pending-text {
+  color: #b85c00;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   REFUND BUTTON
+   ========================================================= */
+
+.refund-button {
+  border: none;
+  background: #07883f;
+  color: #ffffff;
+  padding: 13px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.refund-button:hover:not(:disabled) {
+  background: #066f34;
+}
+
+.refund-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   REFUND COMPLETED
+   ========================================================= */
+
+.refund-completed-section {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.refund-completed-text {
+  color: #07883f;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   CANCELLED WITHOUT PAYMENT
+   ========================================================= */
+
+.cancelled-section {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.not-required-text {
+  color: #777777;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   VIEW ORDER BUTTON
+   ========================================================= */
+
+.view-button {
+  background: #072635;
+  color: #ffffff;
+  padding: 12px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.view-button:hover {
+  background: #0b3448;
+}
+
+
+/* =========================================================
+   GENERAL BUTTON FOCUS
+   ========================================================= */
+
+.pay-button:focus,
+.cancel-button:focus,
+.refund-button:focus,
+.view-button:focus,
+.continue-shopping:focus,
+.shop-button:focus {
+  outline: 2px solid #072635;
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .orders-page {
+    padding: 30px 22px;
+  }
+
+  .order-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .orders-page {
+    padding: 20px 15px;
+  }
+
+
+  .orders-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+
+  .orders-header h1 {
+    font-size: 28px;
+  }
+
+
+  .continue-shopping {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+
+  .order-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+
+  .order-top {
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+
+  .order-top h2 {
+    font-size: 26px;
+  }
+
+
+  .order-status {
+    padding: 9px 16px;
+    font-size: 12px;
+  }
+
+
+  .order-details {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 24px 0;
+  }
+
+
+  .order-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+
+  .pay-button,
+  .cancel-button,
+  .refund-button,
+  .view-button {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+
+  .refund-section,
+  .refund-completed-section,
+  .cancelled-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+
+  .order-cancelled-text,
+  .refund-pending-text,
+  .refund-completed-text,
+  .not-required-text {
+    text-align: center;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .orders-page {
+    padding: 15px 10px;
+  }
+
+
+  .orders-header h1 {
+    font-size: 24px;
+  }
+
+
+  .orders-header p {
+    font-size: 14px;
+  }
+
+
+  .order-card {
+    padding: 16px;
+  }
+
+
+  .order-top {
+    flex-direction: column;
+  }
+
+
+  .order-status {
+    align-self: flex-start;
+  }
+
+
+  .detail-item strong {
+    font-size: 17px;
+  }
+
+
+  .empty-orders {
+    padding: 45px 20px;
+  }
+
+}

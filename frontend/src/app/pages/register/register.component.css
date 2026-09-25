@@ -1,0 +1,325 @@
+.register-page {
+
+  min-height: calc(100vh - 70px);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 40px 20px;
+
+  background: #f3f4f6;
+}
+
+
+.register-card {
+
+  width: 100%;
+
+  max-width: 440px;
+
+  background: #ffffff;
+
+  border: 1px solid #ddd;
+
+  border-radius: 12px;
+
+  padding: 35px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+
+  text-align: center;
+
+  font-size: 32px;
+
+  font-weight: 800;
+
+  color: #072635;
+
+  margin-bottom: 25px;
+}
+
+
+.logo-k {
+
+  color: #ff9900;
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+h1 {
+
+  margin: 0;
+
+  text-align: center;
+
+  font-size: 28px;
+
+  color: #172337;
+}
+
+
+.subtitle {
+
+  text-align: center;
+
+  color: #667085;
+
+  margin-top: 8px;
+
+  margin-bottom: 28px;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+.error-message {
+
+  background: #fff1f0;
+
+  border: 1px solid #ffccc7;
+
+  color: #d4380d;
+
+  padding: 12px 14px;
+
+  border-radius: 7px;
+
+  font-size: 14px;
+
+  margin-bottom: 20px;
+}
+
+
+.success-message {
+
+  background: #f0fff4;
+
+  border: 1px solid #b7ebc6;
+
+  color: #16794a;
+
+  padding: 12px 14px;
+
+  border-radius: 7px;
+
+  font-size: 14px;
+
+  margin-bottom: 20px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-group {
+
+  margin-bottom: 18px;
+}
+
+
+.form-group label {
+
+  display: block;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #344054;
+
+  margin-bottom: 7px;
+}
+
+
+/* INPUT */
+
+.form-group input {
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  height: 46px;
+
+  border: 1px solid #cfd4dc;
+
+  border-radius: 7px;
+
+  padding: 0 13px;
+
+  font-size: 15px;
+
+  outline: none;
+}
+
+
+.form-group input:focus {
+
+  border-color: #ff9900;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(255, 153, 0, 0.12);
+}
+
+
+/* ADDRESS */
+
+.form-group textarea {
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border: 1px solid #cfd4dc;
+
+  border-radius: 7px;
+
+  padding: 12px 13px;
+
+  font-size: 15px;
+
+  font-family: inherit;
+
+  line-height: 1.5;
+
+  outline: none;
+
+  resize: vertical;
+
+  min-height: 100px;
+}
+
+
+.form-group textarea:focus {
+
+  border-color: #ff9900;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(255, 153, 0, 0.12);
+}
+
+
+/* =========================
+   REGISTER BUTTON
+========================= */
+
+.register-button {
+
+  width: 100%;
+
+  height: 46px;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: #ff9900;
+
+  color: #111827;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.register-button:hover:not(:disabled) {
+
+  background: #ffad32;
+}
+
+
+.register-button:disabled {
+
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   LOGIN SECTION
+========================= */
+
+.login-section {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 6px;
+
+  margin-top: 25px;
+
+  padding-top: 22px;
+
+  border-top: 1px solid #e5e7eb;
+
+  font-size: 14px;
+
+  color: #667085;
+}
+
+
+.login-section a {
+
+  color: #146eb4;
+
+  text-decoration: none;
+
+  font-weight: 600;
+}
+
+
+.login-section a:hover {
+
+  text-decoration: underline;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+  .register-page {
+
+    padding: 25px 15px;
+
+    align-items: flex-start;
+  }
+
+
+  .register-card {
+
+    padding: 25px 20px;
+
+    margin-top: 20px;
+  }
+}

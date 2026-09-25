@@ -1,0 +1,589 @@
+<div class="cart-page">
+
+  <!-- ==========================================
+       HEADER
+  =========================================== -->
+
+  <div class="cart-header">
+
+    <div>
+
+      <h1>
+        Shopping Cart
+      </h1>
+
+      <p>
+        Review your products before checkout
+      </p>
+
+    </div>
+
+
+    @if (!loading && cartItems.length > 0) {
+
+      <button
+        type="button"
+        class="clear-cart"
+        (click)="clearCart()">
+
+        Clear Cart
+
+      </button>
+
+    }
+
+  </div>
+
+
+  <!-- ==========================================
+       LOADING
+  =========================================== -->
+
+  @if (loading) {
+
+    <div class="cart-message">
+
+      <div class="spinner"></div>
+
+      <h2>
+        Loading your cart...
+      </h2>
+
+    </div>
+
+  }
+
+
+  <!-- ==========================================
+       ERROR
+  =========================================== -->
+
+  @if (!loading && error) {
+
+    <div class="cart-message error">
+
+      <h2>
+        Something went wrong
+      </h2>
+
+      <p>
+        {{ error }}
+      </p>
+
+      <button
+        type="button"
+        class="retry-button"
+        (click)="loadCart()">
+
+        Try Again
+
+      </button>
+
+    </div>
+
+  }
+
+
+  <!-- ==========================================
+       EMPTY CART
+  =========================================== -->
+
+  @if (
+    !loading &&
+    !error &&
+    cartItems.length === 0
+  ) {
+
+    <div class="cart-message empty">
+
+      <div class="empty-icon">
+        🛒
+      </div>
+
+      <h2>
+        Your cart is empty
+      </h2>
+
+      <p>
+        You haven't added any products yet.
+      </p>
+
+      <a
+        routerLink="/"
+        class="shop-button">
+
+        Continue Shopping
+
+      </a>
+
+    </div>
+
+  }
+
+
+  <!-- ==========================================
+       CART CONTENT
+  =========================================== -->
+
+  @if (
+    !loading &&
+    !error &&
+    cartItems.length > 0
+  ) {
+
+    <div class="cart-layout">
+
+
+      <!-- ======================================
+           LEFT SIDE - PRODUCTS
+      ======================================= -->
+
+      <section class="cart-products">
+
+        <div class="cart-products-header">
+
+          <div>
+
+            <h2>
+              Your Cart
+            </h2>
+
+            <span>
+              {{ getTotalItems() }}
+              {{ getTotalItems() === 1 ? 'item' : 'items' }}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- ====================================
+             CART ITEMS
+        ===================================== -->
+
+        @for (
+          item of cartItems;
+          track item.cart.productId
+        ) {
+
+          <div class="cart-item">
+
+
+            <!-- ==================================
+                 PRODUCT IMAGE
+            =================================== -->
+
+            <a
+              class="cart-image"
+              [routerLink]="[
+                '/product',
+                item.cart.productId
+              ]">
+
+              @if (
+                item.product &&
+                item.product.imageUrl
+              ) {
+
+                <img
+                  [src]="item.product.imageUrl"
+                  [alt]="item.product.name"
+                />
+
+              } @else {
+
+                <div class="image-placeholder">
+
+                  {{ item.product?.name }}
+
+                </div>
+
+              }
+
+            </a>
+
+
+            <!-- ==================================
+                 PRODUCT INFORMATION
+            =================================== -->
+
+            <div class="cart-info">
+
+              <span class="brand">
+
+                {{ item.product?.brand }}
+
+              </span>
+
+
+              <a
+                class="product-name"
+                [routerLink]="[
+                  '/product',
+                  item.cart.productId
+                ]">
+
+                {{ item.product?.name }}
+
+              </a>
+
+
+              <p class="description">
+
+                {{ item.product?.description }}
+
+              </p>
+
+
+              @if (
+                item.product &&
+                item.product.quantity > 0
+              ) {
+
+                <span class="stock">
+
+                  ✓ In stock
+
+                </span>
+
+              } @else {
+
+                <span class="stock out-of-stock">
+
+                  Out of stock
+
+                </span>
+
+              }
+
+
+              <!-- =================================
+                   QUANTITY
+              ================================== -->
+
+              <div class="quantity-section">
+
+                <span>
+                  Quantity
+                </span>
+
+
+                <div class="quantity-control">
+
+                  <!-- DECREASE -->
+
+                  <button
+                    type="button"
+                    [disabled]="
+                      item.cart.quantity <= 1
+                    "
+                    (click)="
+                      decreaseQuantity(item)
+                    ">
+
+                    −
+
+                  </button>
+
+
+                  <!-- CURRENT QUANTITY -->
+
+                  <span>
+
+                    {{ item.cart.quantity }}
+
+                  </span>
+
+
+                  <!-- INCREASE -->
+
+                  <button
+                    type="button"
+                    [disabled]="
+                      item.product &&
+                      item.cart.quantity >=
+                      item.product.quantity
+                    "
+                    (click)="
+                      increaseQuantity(item)
+                    ">
+
+                    +
+
+                  </button>
+
+                </div>
+
+              </div>
+
+
+              <!-- =================================
+                   REMOVE
+              ================================== -->
+
+              <button
+                type="button"
+                class="remove-button"
+                (click)="
+                  removeItem(
+                    item.cart.productId
+                  )
+                ">
+
+                Remove
+
+              </button>
+
+            </div>
+
+
+            <!-- ==================================
+                 PRICE
+            =================================== -->
+
+            <div class="item-price">
+
+              <strong>
+
+                ₹{{
+                  getItemTotal(item)
+                  | number:'1.0-0'
+                }}
+
+              </strong>
+
+
+              <span>
+
+                ₹{{
+                  item.product?.price
+                  | number:'1.0-0'
+                }}
+
+                each
+
+              </span>
+
+            </div>
+
+          </div>
+
+        }
+
+      </section>
+
+
+      <!-- ======================================
+           RIGHT SIDE - ORDER SUMMARY
+      ======================================= -->
+
+      <aside class="order-summary">
+
+        <h2>
+          Order Summary
+        </h2>
+
+
+        <!-- ITEMS -->
+
+        <div class="summary-row">
+
+          <span>
+            Items
+          </span>
+
+          <strong>
+            {{ getTotalItems() }}
+          </strong>
+
+        </div>
+
+
+        <!-- SUBTOTAL -->
+
+        <div class="summary-row">
+
+          <span>
+            Subtotal
+          </span>
+
+          <strong>
+
+            ₹{{
+              getSubtotal()
+              | number:'1.0-0'
+            }}
+
+          </strong>
+
+        </div>
+
+
+        <!-- DELIVERY -->
+
+        <div class="summary-row">
+
+          <span>
+            Delivery
+          </span>
+
+          @if (getDeliveryCharge() === 0) {
+
+            <strong class="free">
+              FREE
+            </strong>
+
+          } @else {
+
+            <strong>
+
+              ₹{{
+                getDeliveryCharge()
+                | number:'1.0-0'
+              }}
+
+            </strong>
+
+          }
+
+        </div>
+
+
+        <!-- DIVIDER -->
+
+        <div class="divider"></div>
+
+
+        <!-- GRAND TOTAL -->
+
+        <div class="grand-total">
+
+          <span>
+            Total
+          </span>
+
+          <strong>
+
+            ₹{{
+              getGrandTotal()
+              | number:'1.0-0'
+            }}
+
+          </strong>
+
+        </div>
+
+
+        <!-- ==================================
+             PROCEED TO CHECKOUT
+        =================================== -->
+
+        <button
+          type="button"
+          class="checkout-button"
+          (click)="proceedToCheckout()">
+
+          Proceed to Checkout
+
+        </button>
+
+
+        <!-- ==================================
+             CONTINUE SHOPPING
+        =================================== -->
+
+        <a
+          routerLink="/"
+          class="continue-shopping">
+
+          ← Continue Shopping
+
+        </a>
+
+
+        <!-- ==================================
+             BENEFITS
+        =================================== -->
+
+        <div class="benefits">
+
+
+          <!-- FREE DELIVERY -->
+
+          <div class="benefit">
+
+            <span>
+              🚚
+            </span>
+
+            <div>
+
+              <strong>
+                Free Delivery
+              </strong>
+
+              <small>
+                On orders above ₹500
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <!-- SECURE PAYMENT -->
+
+          <div class="benefit">
+
+            <span>
+              🔒
+            </span>
+
+            <div>
+
+              <strong>
+                Secure Payment
+              </strong>
+
+              <small>
+                Safe & secure checkout
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <!-- EASY RETURNS -->
+
+          <div class="benefit">
+
+            <span>
+              ↩
+            </span>
+
+            <div>
+
+              <strong>
+                Easy Returns
+              </strong>
+
+              <small>
+                Simple return process
+              </small>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  }
+
+</div>

@@ -1,0 +1,506 @@
+<div class="checkout-page">
+
+  <!-- ======================================
+       HEADER
+  ======================================= -->
+
+  <div class="checkout-header">
+
+    <div>
+
+      <h1>
+        Checkout
+      </h1>
+
+      <p>
+        Review your order and delivery details
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/cart"
+      class="back-cart">
+
+      ← Back to Cart
+
+    </a>
+
+  </div>
+
+
+  <!-- ======================================
+       LOADING
+  ======================================= -->
+
+  @if (loading) {
+
+    <div class="checkout-message">
+
+      <div class="spinner"></div>
+
+      <h2>
+        Preparing your checkout...
+      </h2>
+
+    </div>
+
+  }
+
+
+  <!-- ======================================
+       ERROR
+  ======================================= -->
+
+  @if (!loading && error) {
+
+    <div class="checkout-message error">
+
+      <h2>
+        Something went wrong
+      </h2>
+
+      <p>
+        {{ error }}
+      </p>
+
+      <a
+        routerLink="/cart"
+        class="back-button">
+
+        Back to Cart
+
+      </a>
+
+    </div>
+
+  }
+
+
+  <!-- ======================================
+       EMPTY CART
+  ======================================= -->
+
+  @if (
+    !loading &&
+    !error &&
+    checkoutItems.length === 0
+  ) {
+
+    <div class="checkout-message empty">
+
+      <div class="empty-icon">
+        🛒
+      </div>
+
+      <h2>
+        Your cart is empty
+      </h2>
+
+      <p>
+        Add some products before checkout.
+      </p>
+
+      <a
+        routerLink="/"
+        class="shop-button">
+
+        Continue Shopping
+
+      </a>
+
+    </div>
+
+  }
+
+
+  <!-- ======================================
+       CHECKOUT
+  ====================================== -->
+
+  @if (
+    !loading &&
+    !error &&
+    checkoutItems.length > 0
+  ) {
+
+    <div class="checkout-layout">
+
+
+      <!-- ==================================
+           LEFT SIDE
+      =================================== -->
+
+      <div class="checkout-left">
+
+
+        <!-- DELIVERY ADDRESS -->
+
+        <section class="checkout-card">
+
+          <div class="card-header">
+
+            <div>
+
+              <h2>
+                Delivery Address
+              </h2>
+
+              <p>
+                Your order will be delivered here
+              </p>
+
+            </div>
+
+          </div>
+
+
+          @if (user) {
+
+            <div class="address-card">
+
+              <strong class="customer-name">
+
+                {{ user.username }}
+
+              </strong>
+
+
+              <div class="address-line">
+
+                {{ user.phone }}
+
+              </div>
+
+
+              <div class="address-line">
+
+                {{ user.address }}
+
+              </div>
+
+
+              <div class="address-line">
+
+                {{ user.email }}
+
+              </div>
+
+            </div>
+
+          }
+
+        </section>
+
+
+        <!-- ORDER ITEMS -->
+
+        <section class="checkout-card">
+
+          <div class="card-header">
+
+            <div>
+
+              <h2>
+                Your Items
+              </h2>
+
+              <p>
+                {{ getTotalItems() }}
+                {{ getTotalItems() === 1 ? 'item' : 'items' }}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          @for (
+            item of checkoutItems;
+            track item.cart.productId
+          ) {
+
+            <div class="checkout-item">
+
+
+              <!-- IMAGE -->
+
+              <div class="checkout-image">
+
+                @if (
+                  item.product &&
+                  item.product.imageUrl
+                ) {
+
+                  <img
+                    [src]="item.product.imageUrl"
+                    [alt]="item.product.name"
+                  />
+
+                } @else {
+
+                  <div class="image-placeholder">
+
+                    {{ item.product?.name }}
+
+                  </div>
+
+                }
+
+              </div>
+
+
+              <!-- DETAILS -->
+
+              <div class="checkout-item-info">
+
+                <span class="brand">
+
+                  {{ item.product?.brand }}
+
+                </span>
+
+                <h3>
+
+                  {{ item.product?.name }}
+
+                </h3>
+
+                <p>
+
+                  {{ item.product?.description }}
+
+                </p>
+
+                <span class="quantity">
+
+                  Quantity:
+                  {{ item.cart.quantity }}
+
+                </span>
+
+              </div>
+
+
+              <!-- PRICE -->
+
+              <div class="checkout-item-price">
+
+                <strong>
+
+                  ₹{{
+                    getItemTotal(item)
+                    | number:'1.0-0'
+                  }}
+
+                </strong>
+
+                <span>
+
+                  ₹{{
+                    item.product?.price
+                    | number:'1.0-0'
+                  }}
+                  each
+
+                </span>
+
+              </div>
+
+            </div>
+
+          }
+
+        </section>
+
+      </div>
+
+
+      <!-- ==================================
+           RIGHT SIDE
+      =================================== -->
+
+      <aside class="checkout-summary">
+
+        <h2>
+          Order Summary
+        </h2>
+
+
+        <div class="summary-row">
+
+          <span>
+            Items
+          </span>
+
+          <strong>
+            {{ getTotalItems() }}
+          </strong>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span>
+            Subtotal
+          </span>
+
+          <strong>
+
+            ₹{{
+              getSubtotal()
+              | number:'1.0-0'
+            }}
+
+          </strong>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span>
+            Delivery
+          </span>
+
+          @if (getDeliveryCharge() === 0) {
+
+            <strong class="free">
+              FREE
+            </strong>
+
+          } @else {
+
+            <strong>
+
+              ₹{{
+                getDeliveryCharge()
+                | number:'1.0-0'
+              }}
+
+            </strong>
+
+          }
+
+        </div>
+
+
+        <div class="divider"></div>
+
+
+        <div class="grand-total">
+
+          <span>
+            Total
+          </span>
+
+          <strong>
+
+            ₹{{
+              getGrandTotal()
+              | number:'1.0-0'
+            }}
+
+          </strong>
+
+        </div>
+
+
+        <!-- PAYMENT BUTTON -->
+
+        <button
+          type="button"
+          class="payment-button"
+          (click)="continueToPayment()">
+
+          Continue to Payment
+
+        </button>
+
+
+        <button
+          type="button"
+          class="continue-button"
+          (click)="continueShopping()">
+
+          ← Continue Shopping
+
+        </button>
+
+
+        <!-- SECURITY -->
+
+        <div class="security-info">
+
+          <div class="security-item">
+
+            <span>
+              🔒
+            </span>
+
+            <div>
+
+              <strong>
+                Secure Checkout
+              </strong>
+
+              <small>
+                Your information is protected
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="security-item">
+
+            <span>
+              🚚
+            </span>
+
+            <div>
+
+              <strong>
+                Free Delivery
+              </strong>
+
+              <small>
+                On orders above ₹500
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="security-item">
+
+            <span>
+              ↩
+            </span>
+
+            <div>
+
+              <strong>
+                Easy Returns
+              </strong>
+
+              <small>
+                Simple return process
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  }
+
+</div>
